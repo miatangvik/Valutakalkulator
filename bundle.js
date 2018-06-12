@@ -17,6 +17,7 @@ var overlayCounterCurrencyElements;
 var overlayAllCurrenciesContainer = document.querySelector('.overlay.choose .all-currencies');
 
 var changeCurrencyButtons = document.querySelectorAll('.change-currency-button');
+var refreshIcon = document.querySelector('.refresh-icon');
 var settingsIcon = document.querySelector('.settings-icon');
 var closeIcon = document.querySelector('.close-icon');
 
@@ -219,7 +220,6 @@ changeCurrencyButtons.forEach(function (changeCurrencyButton, index) {
 });
 
 overlayBaseCurrencyElement.addEventListener('mousedown', function () {
-
     choosingBaseCurrency = true;
     markChosen();
     chooseOverlay.classList.add('visible');
@@ -228,8 +228,6 @@ overlayBaseCurrencyElement.addEventListener('mousedown', function () {
 overlayCounterCurrencyElements = document.querySelectorAll('.overlay.settings .counter-currency');
 overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) {
     counterCurrencyElement.addEventListener('mousedown', function () {
-
-
         counterCurrencyIndexClicked = index;
         choosingBaseCurrency = false;
         markChosen();
@@ -263,6 +261,10 @@ overlayAllCurrenciesContainer.addEventListener('mousedown', function (event) {
     }
     getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
     chooseOverlay.classList.remove('visible');
+});
+
+refreshIcon.addEventListener('mousedown', function () {
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 });
 
 settingsIcon.addEventListener('mousedown', function () {

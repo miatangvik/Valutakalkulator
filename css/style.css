@@ -26,9 +26,16 @@ input {
     text-align: right;
     color: white;
     width: 100%;
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+    transition: border-bottom 0.3s;
+}
+
+input:hover {
+    border-bottom: 2px dashed;
 }
 
 input:focus {
+    border-bottom: 2px dashed;
     outline: none;
 }
 
@@ -46,7 +53,7 @@ a {
     opacity: 0.3;
 }
 
-.settings-icon {
+.settings-icon, .refresh-icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -58,6 +65,14 @@ a {
 
 .settings-icon:hover {
     transform: scale(1.2);
+}
+
+.refresh-icon {
+    right: 35px;
+}
+
+.refresh-icon:hover {
+    transform: rotate(180deg);
 }
 
 .content-container {
@@ -75,11 +90,16 @@ a {
     font-weight: 500;
 }
 
+.base-currency.container {
+    margin-bottom: 50px;
+}
+
 .base-currency .currency-code {
     display: inline-block;
     position: relative;
     top: -35px;
     width: 170px;
+    margin: 0;
     font-size: 70px;
     font-weight: 600;
 }
@@ -94,10 +114,21 @@ a {
     font-weight: 500;
 }
 
+.base-currency .text-container {
+    position: absolute;
+}
+
+.base-currency .info {
+    position: relative;
+    font-size: 12px;
+    top: -5px;
+    text-transform: uppercase;
+}
+
 .counter-currencies.container {
     display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
+    justify-content: center;
+    margin-top: 40px;
     width: 100vw;
 }
 
@@ -105,6 +136,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 30px;
     width: 300px;
 }
 
@@ -145,19 +177,22 @@ a {
     font-weight: 500;
 }
 
-.counter-currency .button-container {
+.button-container {
     position: relative;
 }
 
-.counter-currency .change-currency-button {
+.change-currency-button {
     position: absolute;
-    top: -205px;
-    left: 70px;
     text-transform: uppercase;
     font-size: 10px;
-    color: black;
-    width: 80px;
     cursor: pointer;
+    width: 80px;
+}
+
+.counter-currency .change-currency-button {
+    top: -205px;
+    left: 70px;
+    color: black;
     opacity: 0;
     transition: opacity 0.2s;
 }
