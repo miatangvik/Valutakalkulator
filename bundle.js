@@ -179,12 +179,24 @@ function setCounterCurrency(flagSrc, currencyCode, currencyName) {
 function markChosen() {
     for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
         if (choosingBaseCurrency) {
+            //for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
+                overlayAllCurrenciesContainer.children[i].classList.remove('counter-currency');
+                overlayAllCurrenciesContainer.children[i].classList.add('base-currency');
+
+
+            //}
+
             if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
                 overlayAllCurrenciesContainer.children[i].classList.add('chosen');
             } else {
                 overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
             }
         } else {
+            //for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
+                overlayAllCurrenciesContainer.children[i].classList.remove('base-currency');
+                overlayAllCurrenciesContainer.children[i].classList.add('counter-currency');
+            //}
+
             for (var j = 0; j < overlayCounterCurrencyElements.length; j++) {
                 if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
                     overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
@@ -207,12 +219,7 @@ changeCurrencyButtons.forEach(function (changeCurrencyButton, index) {
 });
 
 overlayBaseCurrencyElement.addEventListener('mousedown', function () {
-    for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-        overlayAllCurrenciesContainer.children[i].classList.remove('counter-currency');
-        overlayAllCurrenciesContainer.children[i].classList.add('base-currency');
 
-
-    }
     choosingBaseCurrency = true;
     markChosen();
     chooseOverlay.classList.add('visible');
@@ -221,10 +228,7 @@ overlayBaseCurrencyElement.addEventListener('mousedown', function () {
 overlayCounterCurrencyElements = document.querySelectorAll('.overlay.settings .counter-currency');
 overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) {
     counterCurrencyElement.addEventListener('mousedown', function () {
-        for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-            overlayAllCurrenciesContainer.children[i].classList.remove('base-currency');
-            overlayAllCurrenciesContainer.children[i].classList.add('counter-currency');
-        }
+
 
         counterCurrencyIndexClicked = index;
         choosingBaseCurrency = false;
