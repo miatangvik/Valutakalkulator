@@ -108,6 +108,14 @@ a {
     width: 300px;
 }
 
+.counter-currency.container:hover .change-currency-button {
+    opacity: 1;
+}
+
+.counter-currency.container:hover .change-currency-button:hover {
+    opacity: 0.3;
+}
+
 .content-container .counter-currency {
     background: white;
     box-shadow: 5px 25px 50px 0 rgba(0, 0, 0, 0.10);
@@ -135,6 +143,23 @@ a {
     margin-bottom: 30px;
     opacity: 0.5;
     font-weight: 500;
+}
+
+.counter-currency .button-container {
+    position: relative;
+}
+
+.counter-currency .change-currency-button {
+    position: absolute;
+    top: -205px;
+    left: 70px;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: black;
+    width: 80px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
 .overlay {

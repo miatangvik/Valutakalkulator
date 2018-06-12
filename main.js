@@ -15,10 +15,11 @@ var overlayCounterCurrenciesContainer = document.querySelector('.overlay.setting
 var overlayCounterCurrencyElements;
 var overlayAllCurrenciesContainer = document.querySelector('.overlay.choose .all-currencies');
 
+var changeCurrencyButtons = document.querySelectorAll('.change-currency-button');
 var settingsIcon = document.querySelector('.settings-icon');
 var closeIcon = document.querySelector('.close-icon');
 
-var chooseBaseCurrency;
+var choosingBaseCurrency;
 var counterCurrencyIndexClicked;
 
 // Save all available currencies in an array
@@ -174,30 +175,15 @@ function setCounterCurrency(flagSrc, currencyCode, currencyName) {
     overlayCounterCurrencyElements[counterCurrencyIndexClicked].children[2].innerHTML = currencyName;
 }
 
-overlayBaseCurrencyElement.addEventListener('mousedown', function () {
+function markChosen() {
     for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-        overlayAllCurrenciesContainer.children[i].classList.remove('counter-currency');
-        overlayAllCurrenciesContainer.children[i].classList.add('base-currency');
-
-        if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML != currentBaseCurrency) {
-            overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
-        }
-
-        if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
-            overlayAllCurrenciesContainer.children[i].classList.add('chosen');
-        }
-    }
-    chooseBaseCurrency = true;
-    chooseOverlay.classList.add('visible');
-});
-
-overlayCounterCurrencyElements = document.querySelectorAll('.overlay.settings .counter-currency');
-overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) {
-    counterCurrencyElement.addEventListener('mousedown', function () {
-        for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-            overlayAllCurrenciesContainer.children[i].classList.remove('base-currency');
-            overlayAllCurrenciesContainer.children[i].classList.add('counter-currency');
-
+        if (choosingBaseCurrency) {
+            if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
+                overlayAllCurrenciesContainer.children[i].classList.add('chosen');
+            } else {
+                overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
+            }
+        } else {
             for (var j = 0; j < overlayCounterCurrencyElements.length; j++) {
                 if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
                     overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
@@ -208,22 +194,52 @@ overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) 
                 }
             }
         }
+    }
+}
+
+changeCurrencyButtons.forEach(function (changeCurrencyButton, index) {
+    changeCurrencyButton.addEventListener('mousedown', function () {
+        counterCurrencyIndexClicked = index;
+        markChosen();
+        chooseOverlay.classList.add('visible');
+    });
+});
+
+overlayBaseCurrencyElement.addEventListener('mousedown', function () {
+    for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
+        overlayAllCurrenciesContainer.children[i].classList.remove('counter-currency');
+        overlayAllCurrenciesContainer.children[i].classList.add('base-currency');
+
+
+    }
+    choosingBaseCurrency = true;
+    markChosen();
+    chooseOverlay.classList.add('visible');
+});
+
+overlayCounterCurrencyElements = document.querySelectorAll('.overlay.settings .counter-currency');
+overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) {
+    counterCurrencyElement.addEventListener('mousedown', function () {
+        for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
+            overlayAllCurrenciesContainer.children[i].classList.remove('base-currency');
+            overlayAllCurrenciesContainer.children[i].classList.add('counter-currency');
+        }
 
         counterCurrencyIndexClicked = index;
-        chooseBaseCurrency = false;
+        choosingBaseCurrency = false;
+        markChosen();
         chooseOverlay.classList.add('visible');
     });
 });
 
 overlayAllCurrenciesContainer.addEventListener('mousedown', function (event) {
     for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-        //if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
         if (overlayAllCurrenciesContainer.children[i].classList.contains('chosen')) {
             overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
         }
     }
 
-    if (chooseBaseCurrency) {
+    if (choosingBaseCurrency) {
         if (event.target.classList.contains('base-currency')) {
             setBaseCurrency(event.target.children[0].src, event.target.children[1].innerHTML, event.target.children[2].innerHTML);
             event.target.classList.add('chosen');
