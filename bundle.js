@@ -2,11 +2,11 @@
 const ForexDataClient = require('forex-quotes');
 let client = new ForexDataClient('XVVYWICltjMrIgzNtnH15pvLRfFesPdc');
 
-var valueToConvertElement = document.querySelector('input');
+var convertValueElement = document.querySelector('input');
 var baseCurrencyContainer = document.querySelector('.base-currency.container');
-var counterCurrenciesContainer = document.querySelector('.counter-currencies.container');
 var counterCurrencyValueElements = document.querySelectorAll('.counter-currency .currency-value');
 var counterCurrencyCodeElements = document.querySelectorAll('.counter-currency .currency-code');
+var counterCurrencyNameElements = document.querySelectorAll('.counter-currency .currency-name');
 
 var overlay = document.querySelector('.overlay.settings');
 var chooseOverlay = document.querySelector('.overlay.choose');
@@ -106,8 +106,8 @@ var currencies = [
 ];
 
 // Give focus to the end of the input element
-valueToConvertElement.focus();
-valueToConvertElement.value = 1000;
+convertValueElement.focus();
+convertValueElement.value = 1000;
 
 // Save current base currency and current counter currencies in variable and array
 var currentBaseCurrency = baseCurrencyContainer.children[1].innerHTML;
@@ -144,8 +144,8 @@ function setBaseCurrency(flagSrc, currencyCode, currencyName) {
 
         currentCounterCurrencies[index] = currentBaseCurrency;
 
-        counterCurrenciesContainer.children[index].children[1].innerHTML = overlayBaseCurrencyElement.children[1].innerHTML;
-        counterCurrenciesContainer.children[index].children[2].innerHTML = overlayBaseCurrencyElement.children[2].innerHTML;
+        counterCurrencyCodeElements[index].innerHTML = overlayBaseCurrencyElement.children[1].innerHTML;
+        counterCurrencyNameElements[index].innerHTML = overlayBaseCurrencyElement.children[2].innerHTML;
 
         overlayCounterCurrenciesContainer.children[index].children[0].src = overlayBaseCurrencyElement.children[0].src;
         overlayCounterCurrenciesContainer.children[index].children[1].innerHTML = overlayBaseCurrencyElement.children[1].innerHTML;
@@ -169,8 +169,8 @@ function setCounterCurrency(flagSrc, currencyCode, currencyName) {
 
     currentCounterCurrencies[counterCurrencyIndexClicked] = currencyCode;
 
-    counterCurrenciesContainer.children[counterCurrencyIndexClicked].children[1].innerHTML = currencyCode;
-    counterCurrenciesContainer.children[counterCurrencyIndexClicked].children[2].innerHTML = currencyName;
+    counterCurrencyCodeElements[counterCurrencyIndexClicked].innerHTML = currencyCode;
+    counterCurrencyNameElements[counterCurrencyIndexClicked].innerHTML = currencyName;
 
     overlayCounterCurrencyElements[counterCurrencyIndexClicked].children[0].src = flagSrc;
     overlayCounterCurrencyElements[counterCurrencyIndexClicked].children[1].innerHTML = currencyCode;
@@ -180,12 +180,8 @@ function setCounterCurrency(flagSrc, currencyCode, currencyName) {
 function markChosen() {
     for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
         if (choosingBaseCurrency) {
-            //for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-                overlayAllCurrenciesContainer.children[i].classList.remove('counter-currency');
-                overlayAllCurrenciesContainer.children[i].classList.add('base-currency');
-
-
-            //}
+            overlayAllCurrenciesContainer.children[i].classList.remove('counter-currency');
+            overlayAllCurrenciesContainer.children[i].classList.add('base-currency');
 
             if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
                 overlayAllCurrenciesContainer.children[i].classList.add('chosen');
@@ -193,10 +189,8 @@ function markChosen() {
                 overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
             }
         } else {
-            //for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-                overlayAllCurrenciesContainer.children[i].classList.remove('base-currency');
-                overlayAllCurrenciesContainer.children[i].classList.add('counter-currency');
-            //}
+            overlayAllCurrenciesContainer.children[i].classList.remove('base-currency');
+            overlayAllCurrenciesContainer.children[i].classList.add('counter-currency');
 
             for (var j = 0; j < overlayCounterCurrencyElements.length; j++) {
                 if (overlayAllCurrenciesContainer.children[i].children[1].innerHTML == currentBaseCurrency) {
@@ -278,7 +272,7 @@ closeIcon.addEventListener('mousedown', function () {
 function getConvertedValues(baseCurrency, counterCurrencies) {
     var promises = [];
     for (var i = 0; i < counterCurrencyValueElements.length; i++) {
-        var promise = convert(baseCurrency, counterCurrencies[i], valueToConvertElement.value);
+        var promise = convert(baseCurrency, counterCurrencies[i], convertValueElement.value);
         promises.push(promise);
     }
 
@@ -298,8 +292,8 @@ function convert(from, to, value) {
 }
 
 // Convert again on number input
-valueToConvertElement.addEventListener('input', function () {
-    if (valueToConvertElement.value <= 0) {
+convertValueElement.addEventListener('input', function () {
+    if (convertValueElement.value <= 0) {
         for (var i = 0; i < counterCurrencyValueElements.length; i++) {
             counterCurrencyValueElements[i].innerHTML = '0';
         }

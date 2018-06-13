@@ -12,39 +12,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-form {
-    display: inline-block;
-    margin-right: 24px;
-    width: 310px;
-}
-
-input {
-    background-color: inherit;
-    border: none;
-    font-size: 130px;
-    font-weight: 300;
-    text-align: right;
-    color: white;
-    width: 100%;
-    border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
-    transition: border-bottom 0.3s;
-}
-
-input:hover {
-    border-bottom: 2px dashed;
-}
-
-input:focus {
-    border-bottom: 2px dashed;
-    outline: none;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 a {
     text-decoration: none;
 }
@@ -53,7 +20,8 @@ a {
     opacity: 0.3;
 }
 
-.settings-icon, .refresh-icon {
+.settings-icon,
+.refresh-icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -83,15 +51,44 @@ a {
     height: 100vh;
 }
 
-.equals-icon {
-    margin: 0;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-}
+
+/* Base currency container */
 
 .base-currency.container {
     margin-bottom: 50px;
+}
+
+.base-currency form {
+    display: inline-block;
+    margin-right: 24px;
+    width: 310px;
+}
+
+.base-currency input {
+    background-color: inherit;
+    border: none;
+    font-size: 130px;
+    font-weight: 300;
+    text-align: right;
+    color: white;
+    width: 100%;
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+    transition: border-bottom 0.3s;
+}
+
+.base-currency input:hover {
+    border-bottom: 2px dashed;
+}
+
+.base-currency input:focus {
+    border-bottom: 2px dashed;
+    outline: none;
+}
+
+.base-currency input[type=number]::-webkit-inner-spin-button,
+.base-currency input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .base-currency .currency-code {
@@ -107,8 +104,8 @@ a {
 .base-currency .currency-name {
     display: inline-block;
     position: absolute;
-    top: 240px;
-    right: 250px;
+    top: 230px;
+    right: 370px;
     width: 260px;
     font-size: 23px;
     font-weight: 500;
@@ -125,6 +122,17 @@ a {
     text-transform: uppercase;
 }
 
+
+.equals-icon {
+    margin: 0;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+
+/* Counter currencies container */
+
 .counter-currencies.container {
     display: flex;
     justify-content: center;
@@ -138,21 +146,18 @@ a {
     align-items: center;
     margin: 0 30px;
     width: 300px;
-}
-
-.counter-currency.container:hover .change-currency-button {
-    opacity: 1;
-}
-
-.counter-currency.container:hover .change-currency-button:hover {
-    opacity: 0.3;
-}
-
-.content-container .counter-currency {
     background: white;
     box-shadow: 5px 25px 50px 0 rgba(0, 0, 0, 0.10);
     border-radius: 5px;
     color: #3B4347;
+}
+
+.counter-currency:hover .change-currency-button {
+    opacity: 1;
+}
+
+.counter-currency:hover .change-currency-button:hover {
+    opacity: 0.3;
 }
 
 .counter-currency .currency-value {
@@ -196,6 +201,9 @@ a {
     opacity: 0;
     transition: opacity 0.2s;
 }
+
+
+/* Overlay */
 
 .overlay {
     z-index: 1;
@@ -247,8 +255,9 @@ a {
     margin-top: 10px;
 }
 
-.overlay a {
-    color: black;
+.overlay .base-currency,
+.overlay .counter-currency {
+    cursor: pointer;
 }
 
 .overlay .flag-icon {
@@ -256,6 +265,16 @@ a {
     margin-left: 20px;
     margin-right: 10px;
     height: 30px;
+}
+
+.overlay .base-currency .flag-icon,
+.overlay .counter-currency .flag-icon {
+    transition: all 0.3s;
+}
+
+.overlay .base-currency:hover .flag-icon,
+.overlay .counter-currency:hover .flag-icon {
+    transform: scale(1.2);
 }
 
 .overlay .currency-value {
@@ -269,53 +288,26 @@ a {
 .overlay .currency-code {
     display: inline-block;
     position: relative;
-    top: -22px;
+    top: -30px;
+    right: auto;
     margin: 0;
+    margin-right: 5px;
     width: auto;
-    font-size: 38px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .overlay .currency-name {
     display: inline-block;
     position: relative;
-    right: 85px;
+    top: -30px;
+    right: auto;
     opacity: 1;
     margin: 0;
     width: auto;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.overlay .currency-code {
-    top: -30px;
-    right: auto;
-    margin-right: 5px;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.overlay .currency-name {
-    top: -30px;
-    right: auto;
     color: #9B9B9B;
     font-size: 16px;
     font-weight: 500;
-}
-
-.overlay .base-currency,
-.overlay .counter-currency {
-    cursor: pointer;
-}
-
-.overlay .base-currency .flag-icon,
-.overlay .counter-currency .flag-icon {
-    transition: all 0.3s;
-}
-
-.overlay .base-currency:hover .flag-icon,
-.overlay .counter-currency:hover .flag-icon {
-    transform: scale(1.2);
 }
 
 .overlay.choose h4 {
