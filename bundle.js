@@ -116,7 +116,7 @@ for (var i = 0; i < counterCurrencyCodeElements.length; i++) {
     currentCounterCurrencies.push(counterCurrencyCodeElements[i].innerHTML);
 }
 
-//getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 
 // Add currencies to overlay
 for (var i = 0; i < currencies.length; i++) {
@@ -207,9 +207,7 @@ function markChosen() {
 
 document.addEventListener('mousedown', function (event) {
     for (var i = 0; i < changeCurrencyButtons.length; i++) {
-        if (event.target == changeCurrencyButtons[i]) {
-            return;
-        }
+        if (event.target == changeCurrencyButtons[i]) return;
     }
 
     if (overlay.classList.contains('visible')) {
@@ -273,12 +271,12 @@ overlayAllCurrenciesContainer.addEventListener('mousedown', function (event) {
             event.target.parentElement.classList.add('chosen');
         }
     }
-    //getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
     chooseOverlay.classList.remove('visible');
 });
 
 refreshIcon.addEventListener('mousedown', function () {
-    //getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 });
 
 settingsIcon.addEventListener('mousedown', function () {
@@ -319,7 +317,7 @@ convertValueElement.addEventListener('input', function () {
         }
         return;
     }
-    //getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 });
 
 convertValueElement.addEventListener('keydown', function (event) {
@@ -327,12 +325,6 @@ convertValueElement.addEventListener('keydown', function (event) {
         event.preventDefault();
     }
 });
-
-
-
-
-
-
 
 
 // Check usage/quota limit
