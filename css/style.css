@@ -101,18 +101,18 @@ a {
     font-weight: 600;
 }
 
-.base-currency .currency-name {
+.base-currency .text-container {
+    position: relative;
+}
+
+.base-currency.container .currency-name {
     display: inline-block;
     position: absolute;
-    top: 230px;
-    right: 370px;
+    top: -77px;
+    left: 342px;
     width: 260px;
     font-size: 23px;
     font-weight: 500;
-}
-
-.base-currency .text-container {
-    position: absolute;
 }
 
 .base-currency .info {
@@ -175,7 +175,6 @@ a {
 }
 
 .counter-currency .currency-name {
-    margin: 0;
     margin-top: 5px;
     margin-bottom: 30px;
     opacity: 0.5;
@@ -261,9 +260,7 @@ a {
 }
 
 .overlay .flag-icon {
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 10px;
+    margin: 0 10px 20px 20px;
     height: 30px;
 }
 
@@ -285,29 +282,25 @@ a {
     font-weight: 300;
 }
 
-.overlay .currency-code {
-    display: inline-block;
-    position: relative;
-    top: -30px;
-    right: auto;
-    margin: 0;
-    margin-right: 5px;
-    width: auto;
-    font-size: 16px;
-    font-weight: 500;
-}
-
+.overlay .currency-code,
 .overlay .currency-name {
     display: inline-block;
     position: relative;
     top: -30px;
     right: auto;
-    opacity: 1;
     margin: 0;
     width: auto;
-    color: #9B9B9B;
     font-size: 16px;
     font-weight: 500;
+}
+
+.overlay .currency-code {
+    margin-right: 5px;
+}
+
+.overlay .currency-name {
+    color: #9B9B9B;
+    opacity: 1;
 }
 
 .overlay.choose h4 {

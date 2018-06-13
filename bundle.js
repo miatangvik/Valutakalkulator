@@ -116,7 +116,7 @@ for (var i = 0; i < counterCurrencyCodeElements.length; i++) {
     currentCounterCurrencies.push(counterCurrencyCodeElements[i].innerHTML);
 }
 
-getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+//getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 
 // Add currencies to overlay
 for (var i = 0; i < currencies.length; i++) {
@@ -155,7 +155,7 @@ function setBaseCurrency(flagSrc, currencyCode, currencyName) {
     currentBaseCurrency = currencyCode;
 
     baseCurrencyContainer.children[1].innerHTML = currencyCode;
-    baseCurrencyContainer.children[2].innerHTML = currencyName;
+    baseCurrencyContainer.children[2].children[0].innerHTML = currencyName;
 
     overlayBaseCurrencyElement.children[0].src = flagSrc;
     overlayBaseCurrencyElement.children[1].innerHTML = currencyCode;
@@ -205,6 +205,26 @@ function markChosen() {
     }
 }
 
+document.addEventListener('mousedown', function (event) {
+    for (var i = 0; i < changeCurrencyButtons.length; i++) {
+        if (event.target == changeCurrencyButtons[i]) {
+            return;
+        }
+    }
+
+    if (overlay.classList.contains('visible')) {
+        if (event.target != settingsIcon && !overlay.contains(event.target)) {
+            overlay.classList.remove('visible');
+        }
+    }
+
+    if (chooseOverlay.classList.contains('visible')) {
+        if (!chooseOverlay.contains(event.target) && !overlay.contains(event.target)) {
+            chooseOverlay.classList.remove('visible');
+        }
+    }
+});
+
 changeCurrencyButtons.forEach(function (changeCurrencyButton, index) {
     changeCurrencyButton.addEventListener('mousedown', function () {
         counterCurrencyIndexClicked = index;
@@ -253,12 +273,12 @@ overlayAllCurrenciesContainer.addEventListener('mousedown', function (event) {
             event.target.parentElement.classList.add('chosen');
         }
     }
-    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    //getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
     chooseOverlay.classList.remove('visible');
 });
 
 refreshIcon.addEventListener('mousedown', function () {
-    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    //getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 });
 
 settingsIcon.addEventListener('mousedown', function () {
@@ -299,9 +319,23 @@ convertValueElement.addEventListener('input', function () {
         }
         return;
     }
-    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    //getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
 });
 
+convertValueElement.addEventListener('keydown', function (event) {
+    if (event.keyCode == 13) {
+        event.preventDefault();
+    }
+});
+
+
+
+
+
+
+
+
+// Check usage/quota limit
 /*client.quota().then(response => {
     console.log(response);
 });*/
