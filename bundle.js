@@ -16,7 +16,8 @@ var overlayCounterCurrenciesContainer = document.querySelector('.overlay.setting
 var overlayCounterCurrencyElements;
 var overlayAllCurrenciesContainer = document.querySelector('.overlay.choose .all-currencies');
 
-var changeCurrencyButtons = document.querySelectorAll('.change-currency-button');
+var changeBaseCurrencyButton = document.querySelector('.base-currency .change-currency-button');
+var changeCounterCurrencyButtons = document.querySelectorAll('.counter-currency .change-currency-button');
 var refreshIcon = document.querySelector('.refresh-icon');
 var settingsIcon = document.querySelector('.settings-icon');
 var closeIcon = document.querySelector('.close-icon');
@@ -138,6 +139,119 @@ for (var i = 0; i < currencies.length; i++) {
 }
 
 
+/* Event listeners */
+
+document.addEventListener('mousedown', function (event) {
+    if (changeBaseCurrencyButton.contains(event.target)) return;
+
+    for (var i = 0; i < changeCounterCurrencyButtons.length; i++) {
+        if (changeCounterCurrencyButtons[i].contains(event.target)) return;
+    }
+
+    if (overlay.classList.contains('visible')) {
+        if (event.target != settingsIcon && !overlay.contains(event.target)) {
+            overlay.classList.remove('visible');
+        }
+    }
+
+    if (chooseOverlay.classList.contains('visible')) {
+        if (!chooseOverlay.contains(event.target) && !overlay.contains(event.target)) {
+            chooseOverlay.classList.remove('visible');
+        }
+    }
+});
+
+// Convert again on number input
+convertValueElement.addEventListener('input', function () {
+    if (convertValueElement.value <= 0) {
+        for (var i = 0; i < counterCurrencyValueElements.length; i++) {
+            counterCurrencyValueElements[i].innerHTML = '0';
+        }
+        return;
+    }
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+});
+
+convertValueElement.addEventListener('keydown', function (event) {
+    if (event.keyCode == 13) {
+        event.preventDefault();
+    }
+});
+
+refreshIcon.addEventListener('mousedown', function () {
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+});
+
+settingsIcon.addEventListener('mousedown', function () {
+    overlay.classList.add('visible');
+});
+
+closeIcon.addEventListener('mousedown', function () {
+    overlay.classList.remove('visible');
+});
+
+changeBaseCurrencyButton.addEventListener('mousedown', function () {
+    choosingBaseCurrency = true;
+    markChosen();
+    chooseOverlay.classList.add('visible');
+});
+
+changeCounterCurrencyButtons.forEach(function (changeCounterCurrencyButton, index) {
+    changeCounterCurrencyButton.addEventListener('mousedown', function () {
+        counterCurrencyIndexClicked = index;
+        choosingBaseCurrency = false;
+        markChosen();
+        chooseOverlay.classList.add('visible');
+    });
+});
+
+overlayBaseCurrencyElement.addEventListener('mousedown', function () {
+    choosingBaseCurrency = true;
+    markChosen();
+    chooseOverlay.classList.add('visible');
+});
+
+overlayCounterCurrencyElements = document.querySelectorAll('.overlay.settings .counter-currency');
+overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) {
+    counterCurrencyElement.addEventListener('mousedown', function () {
+        counterCurrencyIndexClicked = index;
+        choosingBaseCurrency = false;
+        markChosen();
+        chooseOverlay.classList.add('visible');
+    });
+});
+
+overlayAllCurrenciesContainer.addEventListener('mousedown', function (event) {
+    for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
+        if (overlayAllCurrenciesContainer.children[i].classList.contains('chosen')) {
+            overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
+        }
+    }
+
+    if (choosingBaseCurrency) {
+        if (event.target.classList.contains('base-currency')) {
+            setBaseCurrency(event.target.children[0].src, event.target.children[1].innerHTML, event.target.children[2].innerHTML);
+            event.target.classList.add('chosen');
+        } else {
+            setBaseCurrency(event.target.parentElement.children[0].src, event.target.parentElement.children[1].innerHTML, event.target.parentElement.children[2].innerHTML);
+            event.target.parentElement.classList.add('chosen');
+        }
+    } else {
+        if (event.target.classList.contains('counter-currency')) {
+            setCounterCurrency(event.target.children[0].src, event.target.children[1].innerHTML, event.target.children[2].innerHTML);
+            event.target.classList.add('chosen');
+        } else {
+            setCounterCurrency(event.target.parentElement.children[0].src, event.target.parentElement.children[1].innerHTML, event.target.parentElement.children[2].innerHTML);
+            event.target.parentElement.classList.add('chosen');
+        }
+    }
+    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
+    chooseOverlay.classList.remove('visible');
+});
+
+
+/* Functions */
+
 function setBaseCurrency(flagSrc, currencyCode, currencyName) {
     if (currentCounterCurrencies.includes(currencyCode)) {
         var index = currentCounterCurrencies.indexOf(currencyCode);
@@ -205,88 +319,6 @@ function markChosen() {
     }
 }
 
-document.addEventListener('mousedown', function (event) {
-    for (var i = 0; i < changeCurrencyButtons.length; i++) {
-        if (event.target == changeCurrencyButtons[i]) return;
-    }
-
-    if (overlay.classList.contains('visible')) {
-        if (event.target != settingsIcon && !overlay.contains(event.target)) {
-            overlay.classList.remove('visible');
-        }
-    }
-
-    if (chooseOverlay.classList.contains('visible')) {
-        if (!chooseOverlay.contains(event.target) && !overlay.contains(event.target)) {
-            chooseOverlay.classList.remove('visible');
-        }
-    }
-});
-
-changeCurrencyButtons.forEach(function (changeCurrencyButton, index) {
-    changeCurrencyButton.addEventListener('mousedown', function () {
-        counterCurrencyIndexClicked = index;
-        markChosen();
-        chooseOverlay.classList.add('visible');
-    });
-});
-
-overlayBaseCurrencyElement.addEventListener('mousedown', function () {
-    choosingBaseCurrency = true;
-    markChosen();
-    chooseOverlay.classList.add('visible');
-});
-
-overlayCounterCurrencyElements = document.querySelectorAll('.overlay.settings .counter-currency');
-overlayCounterCurrencyElements.forEach(function (counterCurrencyElement, index) {
-    counterCurrencyElement.addEventListener('mousedown', function () {
-        counterCurrencyIndexClicked = index;
-        choosingBaseCurrency = false;
-        markChosen();
-        chooseOverlay.classList.add('visible');
-    });
-});
-
-overlayAllCurrenciesContainer.addEventListener('mousedown', function (event) {
-    for (var i = 0; i < overlayAllCurrenciesContainer.children.length; i++) {
-        if (overlayAllCurrenciesContainer.children[i].classList.contains('chosen')) {
-            overlayAllCurrenciesContainer.children[i].classList.remove('chosen');
-        }
-    }
-
-    if (choosingBaseCurrency) {
-        if (event.target.classList.contains('base-currency')) {
-            setBaseCurrency(event.target.children[0].src, event.target.children[1].innerHTML, event.target.children[2].innerHTML);
-            event.target.classList.add('chosen');
-        } else {
-            setBaseCurrency(event.target.parentElement.children[0].src, event.target.parentElement.children[1].innerHTML, event.target.parentElement.children[2].innerHTML);
-            event.target.parentElement.classList.add('chosen');
-        }
-    } else {
-        if (event.target.classList.contains('counter-currency')) {
-            setCounterCurrency(event.target.children[0].src, event.target.children[1].innerHTML, event.target.children[2].innerHTML);
-            event.target.classList.add('chosen');
-        } else {
-            setCounterCurrency(event.target.parentElement.children[0].src, event.target.parentElement.children[1].innerHTML, event.target.parentElement.children[2].innerHTML);
-            event.target.parentElement.classList.add('chosen');
-        }
-    }
-    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
-    chooseOverlay.classList.remove('visible');
-});
-
-refreshIcon.addEventListener('mousedown', function () {
-    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
-});
-
-settingsIcon.addEventListener('mousedown', function () {
-    overlay.classList.add('visible');
-});
-
-closeIcon.addEventListener('mousedown', function () {
-    overlay.classList.remove('visible');
-});
-
 function getConvertedValues(baseCurrency, counterCurrencies) {
     var promises = [];
     for (var i = 0; i < counterCurrencyValueElements.length; i++) {
@@ -308,29 +340,6 @@ function convert(from, to, value) {
         });
     });
 }
-
-// Convert again on number input
-convertValueElement.addEventListener('input', function () {
-    if (convertValueElement.value <= 0) {
-        for (var i = 0; i < counterCurrencyValueElements.length; i++) {
-            counterCurrencyValueElements[i].innerHTML = '0';
-        }
-        return;
-    }
-    getConvertedValues(currentBaseCurrency, currentCounterCurrencies);
-});
-
-convertValueElement.addEventListener('keydown', function (event) {
-    if (event.keyCode == 13) {
-        event.preventDefault();
-    }
-});
-
-
-// Check usage/quota limit
-/*client.quota().then(response => {
-    console.log(response);
-});*/
 
 },{"forex-quotes":26}],2:[function(require,module,exports){
 module.exports = after

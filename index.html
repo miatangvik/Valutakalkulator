@@ -13,91 +13,101 @@
 </head>
 
 <body>
-    <a href="#">
-        <img class="settings-icon" src="img/settings.png" alt="Settings icon">
-    </a>
-
-    <a href="#">
-        <img class="refresh-icon" src="img/refresh.png" alt="Refresh currencies icon">
-    </a>
-
-    <div class="content-container">
-        <div class="base-currency container">
-            <form>
-                <input type="number" name="value">
-            </form>
-            <h2 class="currency-code">NOK</h2>
-            <div class="text-container">
-                <h3 class="currency-name">Norske kroner</h3>
-            </div>
-
-            <p class="info">
-                Beløp
-            </p>
-        </div>
-
-        <p class="equals-icon">=</p>
-
-        <div class="counter-currencies container">
-            <div class="counter-currency container">
-                <h1 class="currency-value">0</h1>
-                <h2 class="currency-code">EUR</h2>
-                <h3 class="currency-name">Euro</h3>
-
-                <div class="button-container">
-                    <p class="change-currency-button">
-                        Bytt valuta
-                    </p>
-                </div>
-            </div>
-
-            <div class="counter-currency container">
-                <h1 class="currency-value">0</h1>
-                <h2 class="currency-code">USD</h2>
-                <h3 class="currency-name">Amerikanske dollar</h3>
-
-                <div class="button-container">
-                    <p class="change-currency-button">
-                        Bytt valuta
-                    </p>
-                </div>
-            </div>
-
-            <div class="counter-currency container">
-                <h1 class="currency-value">0</h1>
-                <h2 class="currency-code">GBP</h2>
-                <h3 class="currency-name">Britiske pund</h3>
-
-                <div class="button-container">
-                    <p class="change-currency-button">
-                        Bytt valuta
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="overlay settings">
+    <div class="overflow-mobile-container">
         <a href="#">
-           <img class="close-icon" src="img/close.png" alt="Close icon">
+            <img class="settings-icon" src="img/settings.png" alt="Settings icon">
         </a>
 
-        <h3>Innstillinger</h3>
+        <a href="#">
+            <img class="refresh-icon" src="img/refresh.png" alt="Refresh currencies icon">
+        </a>
 
-        <h4>Basisvaluta</h4>
-        <div class="base-currency">
-            <img class="flag-icon" src="">
-            <p class="currency-code"></p>
-            <p class="currency-name"></p>
+        <div class="content-container">
+            <div class="base-currency container">
+                <form>
+                    <input type="number" name="value">
+                </form>
+                <h2 class="currency-code">NOK</h2>
+                <div class="text-container">
+                    <h3 class="currency-name">Norske kroner</h3>
+                </div>
+
+                <p class="info">
+                    Beløp
+                </p>
+
+                <div class="button-container">
+                    <p class="change-currency-button">
+                        Bytt<span> valuta</span>
+                    </p>
+                </div>
+            </div>
+
+            <p class="equals-icon">=</p>
+
+            <div class="counter-currencies container">
+                <div class="counter-currency container">
+                    <h1 class="currency-value"></h1>
+                    <h2 class="currency-code">EUR</h2>
+                    <h3 class="currency-name">Euro</h3>
+
+                    <div class="button-container">
+                        <p class="change-currency-button">
+                            Bytt<span> valuta</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="counter-currency container">
+                    <h1 class="currency-value"></h1>
+                    <h2 class="currency-code">USD</h2>
+                    <h3 class="currency-name">Amerikanske dollar</h3>
+
+                    <div class="button-container">
+                        <p class="change-currency-button">
+                            Bytt<span> valuta</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="counter-currency container">
+                    <h1 class="currency-value"></h1>
+                    <h2 class="currency-code">GBP</h2>
+                    <h3 class="currency-name">Britiske pund</h3>
+
+                    <div class="button-container">
+                        <p class="change-currency-button">
+                            Bytt<span> valuta</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h4>Prisvaluta</h4>
-        <div class="counter-currencies"></div>
-    </div>
 
-    <div class="overlay choose">
-        <h4>Velg ny valuta</h4>
-        <div class="all-currencies"></div>
+        <div class="overlay settings">
+            <a href="#">
+               <img class="close-icon" src="img/close.png" alt="Close icon">
+            </a>
+
+            <h3>Innstillinger</h3>
+
+            <h4>Basisvaluta</h4>
+            <div class="base-currency">
+                <img class="flag-icon" src="">
+                <p class="currency-code"></p>
+                <p class="currency-name"></p>
+            </div>
+
+            <h4>Prisvaluta</h4>
+            <div class="counter-currencies"></div>
+        </div>
+
+        <div class="overlay choose">
+            <h4>Velg ny valuta</h4>
+            <div class="all-currencies"></div>
+        </div>
+
     </div>
 
     <script src="bundle.js"></script>

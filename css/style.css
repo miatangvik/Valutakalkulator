@@ -7,6 +7,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: white;
     overflow: hidden;
+    height: 100vh;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -18,6 +19,20 @@ a {
 
 .chosen {
     opacity: 0.3;
+}
+
+.change-currency-button {
+    position: absolute;
+    text-transform: uppercase;
+    font-size: 10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.overflow-mobile-container {
+    overflow: hidden;
+    position: fixed;
 }
 
 .settings-icon,
@@ -55,7 +70,7 @@ a {
 /* Base currency container */
 
 .base-currency.container {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .base-currency form {
@@ -122,6 +137,21 @@ a {
     text-transform: uppercase;
 }
 
+.base-currency .change-currency-button {
+    top: -65px;
+    left: 343px;
+    font-size: 11px;
+    color: #3B4347;
+}
+
+.base-currency.container:hover .change-currency-button {
+    opacity: 1;
+}
+
+.base-currency.container:hover .change-currency-button:hover {
+    opacity: 0.3;
+}
+
 
 .equals-icon {
     margin: 0;
@@ -152,17 +182,9 @@ a {
     color: #3B4347;
 }
 
-.counter-currency:hover .change-currency-button {
-    opacity: 1;
-}
-
-.counter-currency:hover .change-currency-button:hover {
-    opacity: 0.3;
-}
-
 .counter-currency .currency-value {
-    margin: 0;
-    margin-top: 20px;
+    margin: 0 15px;
+    margin-top: 25px;
     color: #3DA8B9;
     font-size: 70px;
     font-weight: 300;
@@ -185,20 +207,19 @@ a {
     position: relative;
 }
 
-.change-currency-button {
-    position: absolute;
-    text-transform: uppercase;
-    font-size: 10px;
-    cursor: pointer;
-    width: 80px;
+.counter-currency .change-currency-button {
+    top: -206px;
+    left: 4.8vw;
+    width: 70px;
+    color: black;
 }
 
-.counter-currency .change-currency-button {
-    top: -205px;
-    left: 70px;
-    color: black;
-    opacity: 0;
-    transition: opacity 0.2s;
+.counter-currency:hover .change-currency-button {
+    opacity: 1;
+}
+
+.counter-currency:hover .change-currency-button:hover {
+    opacity: 0.3;
 }
 
 
@@ -305,4 +326,132 @@ a {
 
 .overlay.choose h4 {
     margin: 25px 0;
+}
+
+@media only screen and (max-width: 850px) {
+    .base-currency form {
+        width: 36vw;
+        margin-right: 3vw;
+    }
+
+    .base-currency input {
+        font-size: 15.3vw;
+    }
+
+    .base-currency.container .currency-code {
+        top: -4.5vw;
+        width: auto;
+        font-size: 8vw;
+    }
+
+    .base-currency.container .currency-name {
+        top: -9.6vw;
+        left: 40vw;
+        font-size: 2.6vw;
+    }
+
+    .base-currency .change-currency-button {
+        width: 80px;
+        left: 40vw;
+    }
+
+    .counter-currency.container {
+        margin: 0 2vw;
+    }
+
+    .counter-currency .currency-value {
+        font-size: 8vw;
+    }
+
+    .counter-currency.container .currency-code {
+        font-size: 4.5vw;
+    }
+
+    .counter-currency.container .currency-name {
+        font-size: 2.2vw;
+    }
+
+    .counter-currency .change-currency-button {
+        top: -25vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .change-currency-button {
+        width: auto;
+        text-transform: none;
+        opacity: 1;
+    }
+
+    .change-currency-button span {
+        display: none;
+    }
+
+    .refresh-icon:hover {
+        transform: none;
+    }
+
+    .base-currency form {
+        width: 50vw;
+    }
+
+    .base-currency .info {
+        display: none;
+    }
+
+    .base-currency.container .currency-name {
+        top: -7vw;
+        left: 54.5vw;
+        margin: 0;
+    }
+
+    .base-currency .change-currency-button {
+        top: -5vw;
+        left: 54.4vw;
+        font-size: 2.5vw;
+    }
+
+    .base-currency.container:hover .change-currency-button {
+        opacity: 1;
+    }
+
+    .counter-currencies.container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .counter-currency.container {
+        display: initial;
+        position: relative;
+        width: 80vw;
+        margin: 5px 0;
+    }
+
+    .counter-currency .currency-value {
+        display: inline-block;
+        margin: 10px 20px;
+    }
+
+    .counter-currency.container .currency-code {
+        display: inline-block;
+        position: absolute;
+        top: 2.5vw;
+        left: 67vw;
+    }
+
+    .counter-currency.container .currency-name {
+        display: none;
+    }
+
+    .counter-currency .change-currency-button {
+        top: -7vw;
+        left: 69.5vw;
+        font-size: 2.5vw;
+        color: #3B4347;
+        opacity: 0.5;
+    }
+
+    .counter-currency:hover .change-currency-button {
+        opacity: 0.5;
+    }
 }
